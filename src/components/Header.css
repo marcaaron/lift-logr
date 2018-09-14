@@ -1,0 +1,13 @@
+.main-header {
+  background: rgba(0,0,0,0.10);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.main-header__heading {
+  margin: 0;
+  padding: 15px;
+  line-height: 0.77;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
