@@ -15,6 +15,7 @@ const Log = (props) => (
   <Fragment>
     <Query query={GET_LOG}>
     { ({ data: {currentLog, loading, error} }) => {
+      if(!props.main.current) return null;
       if(loading) return 'Loading';
       if(error) return 'Error';
       return currentLog.items.map( (log, index) =>{
