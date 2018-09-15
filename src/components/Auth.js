@@ -1,11 +1,47 @@
 import React, { Component, createRef } from 'react';
 import renderForm from './renderForm';
 import './Auth.css';
+import { gql } from 'apollo-boost';
+import { graphql, compose } from 'react-apollo';
+
+const SIGNUP_USER = gql`
+  mutation signup($email: String!, $password: String!, $username: String!){
+    signup(
+      email: $email,
+      password: $password,
+      username: $username
+    ){
+      user{
+        email
+        username
+      }
+      token
+    }
+  }
+`;
+
+const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!){
+    login(
+      email:$email,
+      password:$password
+    ){
+      user{
+        email
+        username
+      }
+      token
+    }
+  }
+`;
 
 class Auth extends Component {
   constructor(props){
     super(props);
     this.form = createRef();
+    this.loginBtn = createRef();
+    this.registerBtn = createRef();
+
     this.state = {
       authType: '',
       formData: {
@@ -18,6 +54,7 @@ class Auth extends Component {
   }
 
   toggleAuthType = ({currentTarget}) => {
+
     if(this.state.authType === currentTarget.id){
       this.form.current.style.maxHeight = '1px';
       setTimeout(()=>{
@@ -25,7 +62,7 @@ class Auth extends Component {
       }, 700);
     }else{
       this.setState({authType: currentTarget.id},()=>{
-        this.form.current.style.maxHeight = `100%`;
+        this.form.current.style.maxHeight = `360px`;
       });
     }
   }
@@ -43,10 +80,26 @@ class Auth extends Component {
     e.preventDefault();
     switch(this.state.authType){
       case 'REGISTER':
-      console.log('REGISTER', email, username, password);
+        this.props.signupUser({
+          variables: { email, username, password }
+        })
+        .then(({data})=>{
+          const { login: { token } } = data;
+          localStorage.setItem('token', token);
+          this.props.history.push('/log');
+        })
+        .catch(err=>console.log(err));
       break;
       case 'LOGIN':
-      console.log('LOGIN', email, password);
+        this.props.loginUser({
+          variables: { email, password }
+        })
+        .then(({data})=>{
+          const { login: { token } } = data;
+          localStorage.setItem('token', token);
+          this.props.history.push('/log');
+        })
+        .catch(err=>console.log(err));
       break;
       default:
       console.log('wtf');
@@ -60,26 +113,38 @@ class Auth extends Component {
           <h1>LOGR</h1>
           <p>lift <span>•</span> log <span>•</span> repeat</p>
         </div>
-        <div className="auth-buttons">
+        <div
+          className={`auth-buttons ${
+          this.state.authType === 'REGISTER' ? 'auth-buttons--left' : ''
+          } ${
+          this.state.authType === 'LOGIN' ? 'auth-buttons--right' : ''
+          }
+         `}>
           <button
             id="REGISTER"
             onClick={this.toggleAuthType}
-            className="auth-button"
+            className={`auth-button`}
             >
             Register
           </button>
           <button
             id="LOGIN"
             onClick={this.toggleAuthType}
-            className="auth-button"
+            className={`auth-button`}
             >Log In</button>
         </div>
         <form ref={this.form} onSubmit={this.handleSubmit}>
-          {this.renderForm()}
+          <div>
+            {this.renderForm()}
+          </div>
+          <button className="auth-submit" type="submit">Submit</button>
         </form>
       </div>
     )
   }
 }
 
-export default Auth;
+export default compose(
+  graphql(SIGNUP_USER, {name:'signupUser'}),
+  graphql(LOGIN_USER, {name:'loginUser'})
+)(Auth);

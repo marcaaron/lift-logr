@@ -1,13 +1,3 @@
-.auth-main {
-  width: 100%;
-  height: 100%;
-  background: #3E3E3E;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
 .logo {
   display: flex;
   align-items: center;
@@ -51,6 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .auth-button {
@@ -64,44 +55,94 @@
   box-sizing: border-box;
   background-color: transparent;
   border: none;
+  width: 100%;
+}
+
+.auth-buttons::after {
+  content: '';
+  bottom: 0;
+  width: 50%;
+  height: 2px;
+  position: absolute;
+  z-index: -9;
+  transition: transform 0.3s;
+}
+
+.auth-buttons--left::after{
+  background-color: white;
+  transform: translateX(0);
+}
+
+.auth-buttons--right::after{
+  background-color: white;
+  transform: translateX(100%);
+}
+
+.auth-main {
+  width: 100%;
+  height: 100%;
+  background: #3E3E3E;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  perspective: 1000px;
 }
 
 .auth-main form {
   width: 100%;
+  height: 360px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-image: linear-gradient(0.4turn, #82FFB7, #00CCF2);
   max-height: 1px;
   transition: max-height 0.7s;
 }
 
-.auth-main form > label {
+@keyframes slideout {
+  from {
+    transform:
+      translate3d(0,0,0)
+      rotate3d(0,0,0, 0);
+  }
+  to {
+    transform:
+      translate3d(-190px,0,-150px)
+      rotate3d(0,1,0, -79deg);
+  }
+}
+
+.auth-main form > div {
+  flex: 1;
+}
+
+.auth-main form > div > label {
   padding: 30px;
   padding-bottom: 0;
   display: flex;
   flex-direction: column;
 }
 
-.auth-main form > label:last-of-type {
+.auth-main form > div > label:last-of-type {
   padding-bottom: 30px;
 }
 
-.auth-main form > label input {
+.auth-main form > div > label input {
   font-size: 16px;
   padding: 10px;
   border: none;
   border-radius: 3px;
 }
 
-.auth-main form > label p {
+.auth-main form > div > label p {
   font-size: 18px;
   padding-bottom: 5px;
   text-transform: uppercase;
 }
 
 .auth-submit {
-  height: 50px;
+  height: 45px;
   background: white;
   font-size: 20px;
   font-family: inherit;

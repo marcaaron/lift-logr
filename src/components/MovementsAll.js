@@ -3,6 +3,7 @@ import { PlusIcon, SearchIcon } from '../icons';
 import MovementButton from './MovementButton';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import Loading from './Loading';
 
 const GET_MOVEMENTS = gql`
   query movements {
@@ -29,7 +30,6 @@ class MovementsAll extends Component {
   render() {
     const { input } = this.state;
     const { handleChange, filterMovements } = this;
-    // const filteredMovements = filterMovements(MOVEMENTS);
     return(
       <Fragment>
         <p className="movements-heading">Filter Movements</p>
@@ -41,7 +41,7 @@ class MovementsAll extends Component {
           <Query
             query={GET_MOVEMENTS}>
             {({data, loading, error})=>{
-              if(loading) return 'Loading';
+              if(loading) return <Loading/>;
               if(error) return 'Error';
               const { movements } = data;
               const filteredMovements = filterMovements(movements);

@@ -18,7 +18,6 @@ export default function renderForm(){
           <p>Password:</p>
           <input value={this.state.password} onChange={handleChange} id="password" type="password"/>
         </label>
-        <button className="auth-submit" type="submit">Submit</button>
       </Fragment>
     );
     case 'LOGIN':
@@ -32,7 +31,6 @@ export default function renderForm(){
           <p>Password:</p>
           <input value={this.state.password} onChange={handleChange} id="password" type="password"/>
         </label>
-        <button className="auth-submit" type="submit">Submit</button>
       </Fragment>
     );
     default:

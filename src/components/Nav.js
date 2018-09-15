@@ -8,7 +8,7 @@ class Nav extends Component {
     const iconSize = 23;
     return(
       <nav>
-        <Link to="/" className="nav-item">
+        <Link to="/log" className="nav-item">
           <HomeIcon
             width={iconSize}
             height={iconSize}
