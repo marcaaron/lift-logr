@@ -57,10 +57,6 @@ class ApolloApp extends Component {
         },
         resolvers: {
           Mutation: {
-            addToLog: (_, {currentLog}, {cache}) => {
-              cache.writeData({data: { currentLog }});
-              return null;
-            },
             updateLogEntry: (_, variables, {cache}) => {
               const prevData = cache.readQuery({ query: GET_LOG });
               const items = [...prevData.currentLog.items].map(item=>{
@@ -89,7 +85,16 @@ class ApolloApp extends Component {
               }});
               return null;
             },
-            addLogEntry: (_, {exerciseName}, {cache, getCacheKey}) => {
+            clearLogState: (_, variables, {cache}) => {
+              cache.writeData({data: {
+                currentLog: {
+                  __typename: 'CurrentLog',
+                  items:[]
+                }
+              }});
+              return null;
+            },
+            addLogEntry: (_, {exerciseName, movement_id}, {cache, getCacheKey}) => {
               const id = uuidv1();
               const prevData = cache.readQuery({query: GET_LOG});
               const item = {
@@ -99,6 +104,7 @@ class ApolloApp extends Component {
                 reps: 0,
                 weight: 0,
                 unit: 'lbs',
+                movement_id,
                 previous: {
                   __typename: 'PreviousAttempt',
                   value: 90,
@@ -122,7 +128,6 @@ class ApolloApp extends Component {
               let item = {...[...prevData.currentLog.items].filter(item=>item.id===id)[0]};
               item.id = newId;
               items.push(item);
-              console.log(items);
               cache.writeData({data: {
                 currentLog: {
                   __typename: 'CurrentLog',
@@ -176,7 +181,7 @@ class ApolloApp extends Component {
   render(){
     const { client, loaded } = this.state;
     if(!loaded){
-      return <Loading/>
+      return <Loading/>;
     }
     return (
       <ApolloProvider client={client}>

@@ -2,11 +2,20 @@ const { Prisma } = require('./generated/prisma');
 const { ApolloServer, gql } = require('apollo-server');
 const { AuthPayload } = require('./AuthPayload.js');
 const { auth } = require('./auth.js');
+const { createLog } = require('./createLog.js');
 
 const typeDefs = gql`
   type Movement {
     id: ID!
     name: String!
+    sets: [Set]
+  }
+
+  type Log {
+    id: ID!
+    created_at: String!
+    sets: [Set]
+    user: User!
   }
 
   type User {
@@ -14,16 +23,44 @@ const typeDefs = gql`
     created_at: String!
     username: String!
     email: String!
+    logs: [Log]
+    sets: [Set]
+  }
+
+  type Set {
+    id: ID!
+    created_at: String!
+    reps: Int!
+    weight: Int!
+    unit: String!
+    user: User!
+    movement: Movement!
+    log: Log
+  }
+
+  input SetInput {
+    reps: Int!
+    weight: Int!
+    unit: String!
+    movement_id: ID!
+  }
+
+  input SetInputList {
+    sets: [SetInput]
   }
 
   type Query {
     movements: [Movement]
+    logs: [Log]
     user: User
+    users: [User]
+    sets: [Set]
   }
 
   type Mutation {
     signup(email: String!, password: String!, username: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
+    createLog(sets: [SetInput], created_at: String!): Log
   }
 
   type AuthPayload {
@@ -38,10 +75,55 @@ const resolvers = {
       const movements = await ctx.prisma.movements();
       return movements;
     },
+    logs: async (_, {}, ctx) => {
+      const logs = await ctx.prisma.logs();
+      return logs;
+    },
+    users: async (_, {}, ctx) => {
+      const users = await ctx.prisma.users();
+      return users;
+    },
+    sets: async (_, {}, ctx) => {
+      const sets = await ctx.prisma.sets();
+      return sets;
+    },
     ...AuthPayload
   },
   Mutation: {
-    ...auth
+    ...auth,
+    ...createLog
+  },
+  Log: {
+    sets(root, args, context){
+      return context.prisma.log({id:root.id}).sets()
+    },
+    user(root, args, context){
+      return context.prisma.log({id:root.id}).user()
+    }
+  },
+  Set: {
+    movement(root, args, context){
+      return context.prisma.set({id:root.id}).movement()
+    },
+    log(root, args, context){
+      return context.prisma.set({id:root.id}).log()
+    },
+    user(root, args, context){
+      return context.prisma.set({id:root.id}).user()
+    }
+  },
+  User: {
+    logs(root, args, context){
+      return context.prisma.user({id:root.id}).logs({orderBy: "created_at_DESC"})
+    },
+    sets(root, args, context){
+      return context.prisma.user({id:root.id}).sets()
+    }
+  },
+  Movement: {
+    sets(root, args, context){
+      return context.prisma.movement({id:root.id}).sets()
+    }
   }
 };
 

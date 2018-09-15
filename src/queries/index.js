@@ -8,6 +8,7 @@ export const GET_LOG = gql`
         reps
         weight
         unit
+        movement_id
         exerciseName
         previous {
           unit

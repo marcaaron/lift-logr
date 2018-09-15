@@ -12,6 +12,12 @@ export const UPDATE_LOG_ENTRY = gql`
   }
 `;
 
+export const CLEAR_LOG_STATE = gql`
+  mutation clearLogState{
+    clearLogState @client
+  }
+`;
+
 export const UPDATE_PICKER_VALUES = gql`
   mutation updatePickerValues($reps: Int, $weight: Int, $unit: String, $set_id: String) {
     updatePickerValues(reps: $reps, weight: $weight, unit: $unit, set_id: $set_id) @client

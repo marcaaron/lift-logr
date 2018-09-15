@@ -5,17 +5,17 @@ import { ChevronRightIcon } from '../icons';
 import { withRouter } from 'react-router-dom';
 
 const ADD_LOG_ENTRY = gql`
-  mutation addLogEntry($exerciseName: String) {
-    addLogEntry(exerciseName: $exerciseName) @client
+  mutation addLogEntry($exerciseName: String, $movement_id: String) {
+    addLogEntry(exerciseName: $exerciseName, movement_id: $movement_id) @client
   }
 `;
 
-const MovementButton = ({exerciseName, history}) => (
+const MovementButton = ({movement_id, exerciseName, history}) => (
   <Mutation mutation={ADD_LOG_ENTRY}>
     {(addLogEntry, {data}) => (
       <button onClick={e=> {
         e.preventDefault();
-        addLogEntry({variables: {exerciseName}}).then(()=>{
+        addLogEntry({variables: {exerciseName, movement_id}}).then(()=>{
           history.push('/');
         });
       }} className="large-button">

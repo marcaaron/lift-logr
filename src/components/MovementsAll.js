@@ -50,6 +50,7 @@ class MovementsAll extends Component {
                 <MovementButton
                   key={id}
                   exerciseName={name}
+                  movement_id={id}
                 />) :
               <p className="no-movements-text">No movements found!</p>
             }}

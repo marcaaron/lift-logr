@@ -4,12 +4,7 @@ import { PlusIcon } from '../icons';
 import { Query } from 'react-apollo';
 import { GET_LOG } from '../queries';
 import { Link } from 'react-router-dom';
-
-const Button = ({children}) => (
-  <button className="btn--large">
-    {children}
-  </button>
-);
+import LogButton from './LogButton';
 
 const Log = (props) => (
   <Fragment>
@@ -23,8 +18,12 @@ const Log = (props) => (
       })
     }}
     </Query>
-    <Link to="/movements/all"><Button><PlusIcon width={30} height={30} color="#FFF"/></Button></Link>
-    <div><Button>LOG</Button></div>
+    <Link to="/movements/all">
+      <button className="btn--large">
+        <PlusIcon width={30} height={30} color="#FFF"/>
+      </button>
+    </Link>
+    <LogButton/>
   </Fragment>
 );
 
