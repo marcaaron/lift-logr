@@ -3,6 +3,8 @@ const { ApolloServer, gql } = require('apollo-server');
 const { AuthPayload } = require('./AuthPayload.js');
 const { auth } = require('./auth.js');
 const { createLog } = require('./createLog.js');
+const { createMovement } = require('./createMovement.js');
+const { getUserId } = require('./utils.js');
 
 const typeDefs = gql`
   type Movement {
@@ -55,12 +57,14 @@ const typeDefs = gql`
     user: User
     users: [User]
     sets: [Set]
+    getUserLogs(first:Int!, skip:Int!): [Log]
   }
 
   type Mutation {
     signup(email: String!, password: String!, username: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
     createLog(sets: [SetInput], created_at: String!): Log
+    createMovement(name: String!): Movement
   }
 
   type AuthPayload {
@@ -72,11 +76,19 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     movements: async (_, {}, ctx) => {
-      const movements = await ctx.prisma.movements();
+      const movements = await ctx.prisma.movements({orderBy: 'name_ASC'});
       return movements;
     },
     logs: async (_, {}, ctx) => {
-      const logs = await ctx.prisma.logs();
+      const logs = await ctx.prisma.logs({orderBy: "created_at_DESC"});
+      return logs;
+    },
+    getUserLogs: async (_, {first, skip}, ctx) => {
+      console.log(getUserId(ctx));
+      console.log(first, skip);
+      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC", first
+      });
+      console.log(logs);
       return logs;
     },
     users: async (_, {}, ctx) => {
@@ -91,7 +103,8 @@ const resolvers = {
   },
   Mutation: {
     ...auth,
-    ...createLog
+    ...createLog,
+    ...createMovement
   },
   Log: {
     sets(root, args, context){

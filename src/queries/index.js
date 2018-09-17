@@ -37,3 +37,12 @@ export const GET_PICKER = gql`
     }
   }
 `;
+
+export const GET_MOVEMENTS = gql`
+  query movements {
+    movements{
+      id
+      name
+    }
+  }
+`;

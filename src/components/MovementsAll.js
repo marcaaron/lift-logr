@@ -2,17 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { PlusIcon, SearchIcon } from '../icons';
 import MovementButton from './MovementButton';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import Loading from './Loading';
+import { Link } from 'react-router-dom';
+import { GET_MOVEMENTS } from '../queries';
 
-const GET_MOVEMENTS = gql`
-  query movements {
-    movements{
-      id
-      name
-    }
-  }
-`;
 class MovementsAll extends Component {
   state = {
     input: ''
@@ -55,9 +48,11 @@ class MovementsAll extends Component {
               <p className="no-movements-text">No movements found!</p>
             }}
           </Query>
-          <button className="large-button">
-            Create Movement <PlusIcon width="20" height="20" color="#FFF"/>
-          </button>
+          <Link to="/movements/create">
+            <button className="large-button">
+              Create Movement <PlusIcon width="20" height="20" color="#FFF"/>
+            </button>
+          </Link>
         </div>
       </Fragment>
     )
