@@ -11,6 +11,7 @@ import MovementCreate from './components/MovementCreate';
 import Auth from './components/Auth';
 import './App.css';
 import Layout from './components/Layout';
+import PastLog from './components/PastLog';
 
 class App extends Component {
   render() {
@@ -26,6 +27,10 @@ class App extends Component {
             <AuthRoute exact path="/movements/create" component={(props)=>
               <Layout {...props} render={ (props) => (
               <MovementCreate {...props}/>
+            )}/>}/>
+            <AuthRoute path="/logs/:id" component={(props)=>
+              <Layout {...props} render={ (props, ref) => (
+              <PastLog {...props}/>
             )}/>}/>
             <AuthRoute exact path="/movements/:type" component={(props)=>
               <Layout {...props} render={ (props) => (

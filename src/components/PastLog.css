@@ -1,0 +1,9 @@
+.logs__past-item {
+  padding: 10px;
+  background: rgba(0,0,0,0.33);
+  margin-bottom: 2px;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.40);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

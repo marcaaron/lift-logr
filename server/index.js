@@ -57,7 +57,8 @@ const typeDefs = gql`
     user: User
     users: [User]
     sets: [Set]
-    getUserLogs(limit:Int!, offset:Int!): [Log]
+    getUserLogs: [Log]
+    getPastLog(id:String!): Log
   }
 
   type Mutation {
@@ -83,12 +84,13 @@ const resolvers = {
       const logs = await ctx.prisma.logs({orderBy: "created_at_DESC"});
       return logs;
     },
-    getUserLogs: async (_, {limit, offset}, ctx) => {
-      console.log(limit, offset)
-      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC", first: limit, skip: offset
-      });
-      console.log(logs);
+    getUserLogs: async (_, args, ctx) => {
+      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC"});
       return logs;
+    },
+    getPastLog: async (_, {id}, ctx)=> {
+      const log = await ctx.prisma.log({id});
+      return log;
     },
     users: async (_, {}, ctx) => {
       const users = await ctx.prisma.users();
