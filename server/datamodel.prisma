@@ -1,7 +1,7 @@
 type Movement {
   id: ID! @unique
   name: String! @unique
-  sets: [Set!]!
+  sets: [Set!]! @relation(name:"SetMovement")
 }
 
 type User {
@@ -9,24 +9,24 @@ type User {
   username: String! @unique
   email: String! @unique
   password: String!
-  logs: [Log!]! @relation(name:"UserLogs", onDelete: CASCADE)
-  sets: [Set!]! @relation(name:"UserSets", onDelete: CASCADE)
+  logs: [Log!]! @relation(name:"UserLogs")
+  sets: [Set!]! @relation(name:"UserSets")
 }
 
 type Log {
   id: ID! @unique
   created_at: DateTime!
-  sets: [Set!]! @relation(name: "SetsOnLog" onDelete: CASCADE)
-  user: User! @relation(name:"UserLogs", onDelete: SET_NULL)
+  sets: [Set!]! @relation(name:"SetsOnLog")
+  user: User! @relation(name:"UserLogs")
 }
 
 type Set {
   id: ID! @unique
   created_at: DateTime!
-  movement: Movement!
+  movement: Movement! @relation(name:"SetMovement")
   reps: Int!
   weight: Float!
   unit: String!
-  user: User! @relation(name:"UserSets", onDelete: SET_NULL)
-  log: Log! @relation(name: "SetsOnLog", onDelete: SET_NULL)
+  user: User! @relation(name:"UserSets")
+  log: Log! @relation(name:"SetsOnLog")
 }

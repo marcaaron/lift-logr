@@ -33,7 +33,7 @@ const typeDefs = gql`
     id: ID!
     created_at: String!
     reps: Int!
-    weight: Int!
+    weight: Float!
     unit: String!
     user: User!
     movement: Movement!
@@ -42,7 +42,7 @@ const typeDefs = gql`
 
   input SetInput {
     reps: Int!
-    weight: Int!
+    weight: Float!
     unit: String!
     movement_id: ID!
   }
@@ -57,7 +57,7 @@ const typeDefs = gql`
     user: User
     users: [User]
     sets: [Set]
-    getUserLogs(first:Int!, skip:Int!): [Log]
+    getUserLogs(limit:Int!, offset:Int!): [Log]
   }
 
   type Mutation {
@@ -83,10 +83,9 @@ const resolvers = {
       const logs = await ctx.prisma.logs({orderBy: "created_at_DESC"});
       return logs;
     },
-    getUserLogs: async (_, {first, skip}, ctx) => {
-      console.log(getUserId(ctx));
-      console.log(first, skip);
-      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC", first
+    getUserLogs: async (_, {limit, offset}, ctx) => {
+      console.log(limit, offset)
+      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC", first: limit, skip: offset
       });
       console.log(logs);
       return logs;
