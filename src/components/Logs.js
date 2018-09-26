@@ -3,32 +3,26 @@ import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import Loading from './Loading';
 import PastLogButton from './PastLogButton';
-
-const GET_USER_LOGS = gql`
-  query getUserLogs{
-      getUserLogs{
-        id
-        created_at
-      }
-    }
-`;
+import { GET_USER_LOGS } from '../queries';
 
 const Logs = () => (
   <Query
     query={GET_USER_LOGS}
+    variables={{first:5, skip:0}}
   >
-    {({ data, loading, error })=>{
+    {({ data, loading, error, fetchMore })=>{
       if(loading) return <Loading/>;
       if(error) return 'Error';
+      console.log(data);
       return(
         <div>
           {data.getUserLogs.map(log=>(
             <PastLogButton key={log.id} {...log}/>
           ))}
-          {/* <button onClick={()=>{
+          <button onClick={()=>{
             fetchMore({
               variables: {
-                offset: data.getUserLogs.length
+                skip: data.getUserLogs.length
               },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if(!fetchMoreResult) return prev;
@@ -38,7 +32,7 @@ const Logs = () => (
               }
             })
           }
-          }>Load More</button> */}
+          }>Load More</button>
         </div>
       )
     }}

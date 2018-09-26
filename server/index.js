@@ -57,7 +57,7 @@ const typeDefs = gql`
     user: User
     users: [User]
     sets: [Set]
-    getUserLogs: [Log]
+    getUserLogs(first:Int!, skip:Int!): [Log]
     getPastLog(id:String!): Log
   }
 
@@ -84,8 +84,14 @@ const resolvers = {
       const logs = await ctx.prisma.logs({orderBy: "created_at_DESC"});
       return logs;
     },
-    getUserLogs: async (_, args, ctx) => {
-      const logs = await ctx.prisma.user({id: getUserId(ctx)}).logs({orderBy: "created_at_DESC"});
+    getUserLogs: async (_, { first, skip }, ctx) => {
+      console.log(first, skip);
+      const logs = await ctx.prisma.user({id: getUserId(ctx)})
+      .logs({
+        orderBy: "created_at_DESC",
+        first: first,
+        skip: skip
+      });
       return logs;
     },
     getPastLog: async (_, {id}, ctx)=> {

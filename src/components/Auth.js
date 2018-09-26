@@ -84,7 +84,7 @@ class Auth extends Component {
           variables: { email, username, password }
         })
         .then(({data})=>{
-          const { login: { token } } = data;
+          const { signup: { token } } = data;
           localStorage.setItem('token', token);
           this.props.history.push('/log');
         })

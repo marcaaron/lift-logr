@@ -102,7 +102,7 @@ input LogSubscriptionWhereInput {
 input LogUpdateInput {
   created_at: DateTime
   sets: SetUpdateManyWithoutLogInput
-  user: UserUpdateOneWithoutLogsInput
+  user: UserUpdateOneRequiredWithoutLogsInput
 }
 
 input LogUpdateManyWithoutUserInput {
@@ -114,17 +114,16 @@ input LogUpdateManyWithoutUserInput {
   upsert: [LogUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input LogUpdateOneWithoutSetsInput {
+input LogUpdateOneRequiredWithoutSetsInput {
   create: LogCreateWithoutSetsInput
   update: LogUpdateWithoutSetsDataInput
   upsert: LogUpsertWithoutSetsInput
-  delete: Boolean
   connect: LogWhereUniqueInput
 }
 
 input LogUpdateWithoutSetsDataInput {
   created_at: DateTime
-  user: UserUpdateOneWithoutLogsInput
+  user: UserUpdateOneRequiredWithoutLogsInput
 }
 
 input LogUpdateWithoutUserDataInput {
@@ -256,11 +255,10 @@ input MovementUpdateInput {
   sets: SetUpdateManyWithoutMovementInput
 }
 
-input MovementUpdateOneWithoutSetsInput {
+input MovementUpdateOneRequiredWithoutSetsInput {
   create: MovementCreateWithoutSetsInput
   update: MovementUpdateWithoutSetsDataInput
   upsert: MovementUpsertWithoutSetsInput
-  delete: Boolean
   connect: MovementWhereUniqueInput
 }
 
@@ -316,30 +314,30 @@ input MovementWhereUniqueInput {
 }
 
 type Mutation {
-  createMovement(data: MovementCreateInput!): Movement!
-  updateMovement(data: MovementUpdateInput!, where: MovementWhereUniqueInput!): Movement
-  updateManyMovements(data: MovementUpdateInput!, where: MovementWhereInput): BatchPayload!
-  upsertMovement(where: MovementWhereUniqueInput!, create: MovementCreateInput!, update: MovementUpdateInput!): Movement!
-  deleteMovement(where: MovementWhereUniqueInput!): Movement
-  deleteManyMovements(where: MovementWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   createLog(data: LogCreateInput!): Log!
   updateLog(data: LogUpdateInput!, where: LogWhereUniqueInput!): Log
   updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   upsertLog(where: LogWhereUniqueInput!, create: LogCreateInput!, update: LogUpdateInput!): Log!
   deleteLog(where: LogWhereUniqueInput!): Log
   deleteManyLogs(where: LogWhereInput): BatchPayload!
+  createMovement(data: MovementCreateInput!): Movement!
+  updateMovement(data: MovementUpdateInput!, where: MovementWhereUniqueInput!): Movement
+  updateManyMovements(data: MovementUpdateInput!, where: MovementWhereInput): BatchPayload!
+  upsertMovement(where: MovementWhereUniqueInput!, create: MovementCreateInput!, update: MovementUpdateInput!): Movement!
+  deleteMovement(where: MovementWhereUniqueInput!): Movement
+  deleteManyMovements(where: MovementWhereInput): BatchPayload!
   createSet(data: SetCreateInput!): Set!
   updateSet(data: SetUpdateInput!, where: SetWhereUniqueInput!): Set
   updateManySets(data: SetUpdateInput!, where: SetWhereInput): BatchPayload!
   upsertSet(where: SetWhereUniqueInput!, create: SetCreateInput!, update: SetUpdateInput!): Set!
   deleteSet(where: SetWhereUniqueInput!): Set
   deleteManySets(where: SetWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -360,18 +358,18 @@ type PageInfo {
 }
 
 type Query {
-  movement(where: MovementWhereUniqueInput!): Movement
-  movements(where: MovementWhereInput, orderBy: MovementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movement]!
-  movementsConnection(where: MovementWhereInput, orderBy: MovementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovementConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   log(where: LogWhereUniqueInput!): Log
   logs(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log]!
   logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
+  movement(where: MovementWhereUniqueInput!): Movement
+  movements(where: MovementWhereInput, orderBy: MovementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movement]!
+  movementsConnection(where: MovementWhereInput, orderBy: MovementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovementConnection!
   set(where: SetWhereUniqueInput!): Set
   sets(where: SetWhereInput, orderBy: SetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Set]!
   setsConnection(where: SetWhereInput, orderBy: SetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SetConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
@@ -494,12 +492,12 @@ input SetSubscriptionWhereInput {
 
 input SetUpdateInput {
   created_at: DateTime
-  movement: MovementUpdateOneWithoutSetsInput
+  movement: MovementUpdateOneRequiredWithoutSetsInput
   reps: Int
   weight: Float
   unit: String
-  user: UserUpdateOneWithoutSetsInput
-  log: LogUpdateOneWithoutSetsInput
+  user: UserUpdateOneRequiredWithoutSetsInput
+  log: LogUpdateOneRequiredWithoutSetsInput
 }
 
 input SetUpdateManyWithoutLogInput {
@@ -531,11 +529,11 @@ input SetUpdateManyWithoutUserInput {
 
 input SetUpdateWithoutLogDataInput {
   created_at: DateTime
-  movement: MovementUpdateOneWithoutSetsInput
+  movement: MovementUpdateOneRequiredWithoutSetsInput
   reps: Int
   weight: Float
   unit: String
-  user: UserUpdateOneWithoutSetsInput
+  user: UserUpdateOneRequiredWithoutSetsInput
 }
 
 input SetUpdateWithoutMovementDataInput {
@@ -543,17 +541,17 @@ input SetUpdateWithoutMovementDataInput {
   reps: Int
   weight: Float
   unit: String
-  user: UserUpdateOneWithoutSetsInput
-  log: LogUpdateOneWithoutSetsInput
+  user: UserUpdateOneRequiredWithoutSetsInput
+  log: LogUpdateOneRequiredWithoutSetsInput
 }
 
 input SetUpdateWithoutUserDataInput {
   created_at: DateTime
-  movement: MovementUpdateOneWithoutSetsInput
+  movement: MovementUpdateOneRequiredWithoutSetsInput
   reps: Int
   weight: Float
   unit: String
-  log: LogUpdateOneWithoutSetsInput
+  log: LogUpdateOneRequiredWithoutSetsInput
 }
 
 input SetUpdateWithWhereUniqueWithoutLogInput {
@@ -655,10 +653,10 @@ input SetWhereUniqueInput {
 }
 
 type Subscription {
-  movement(where: MovementSubscriptionWhereInput): MovementSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   log(where: LogSubscriptionWhereInput): LogSubscriptionPayload
+  movement(where: MovementSubscriptionWhereInput): MovementSubscriptionPayload
   set(where: SetSubscriptionWhereInput): SetSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
@@ -761,19 +759,17 @@ input UserUpdateInput {
   sets: SetUpdateManyWithoutUserInput
 }
 
-input UserUpdateOneWithoutLogsInput {
+input UserUpdateOneRequiredWithoutLogsInput {
   create: UserCreateWithoutLogsInput
   update: UserUpdateWithoutLogsDataInput
   upsert: UserUpsertWithoutLogsInput
-  delete: Boolean
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneWithoutSetsInput {
+input UserUpdateOneRequiredWithoutSetsInput {
   create: UserCreateWithoutSetsInput
   update: UserUpdateWithoutSetsDataInput
   upsert: UserUpsertWithoutSetsInput
-  delete: Boolean
   connect: UserWhereUniqueInput
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Mutation, Query } from 'react-apollo';
-import { GET_LOG } from '../queries';
+import { GET_LOG, GET_USER_LOGS } from '../queries';
 import Loading from './Loading';
 import { CLEAR_LOG_STATE } from '../mutations';
 import { withRouter } from 'react-router-dom';
@@ -26,7 +26,7 @@ const CREATE_LOG = gql`
 const LogButton = (props) => (
   <Query
     query={GET_LOG}>
-    {({data, loading, error })=>{
+    {({data, loading, error, client })=>{
       if(loading) return <Loading/>;
       if(error) return 'error';
       const logItems = data.currentLog.items.map(({reps, weight, unit, movement_id})=>{
@@ -48,14 +48,21 @@ const LogButton = (props) => (
                             variables: {
                               created_at,
                               sets: logItems
-                            }
+                            },
+                            refetchQueries: [{
+                              query: GET_USER_LOGS,
+                              variables: {first:10, skip:0}}
+                            ]
                           })
                           .then( data => {
                             console.log(data);
                             // dump client state
                             clearLogState()
                             // push user to logs page
-                            .then(()=>props.history.push('/logs'))
+                            .then(()=>{
+                              // client.resetStore();
+                              props.history.push('/logs')
+                            })
                             .catch(err=>console.log(err))
                           })
                           .catch(err=>console.log(err));
