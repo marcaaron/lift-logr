@@ -8,7 +8,7 @@ import { GET_USER_LOGS } from '../queries';
 const Logs = () => (
   <Query
     query={GET_USER_LOGS}
-    variables={{first:5, skip:0}}
+    variables={{first:10, skip:0}}
   >
     {({ data, loading, error, fetchMore })=>{
       if(loading) return <Loading/>;

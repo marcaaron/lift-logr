@@ -1,0 +1,409 @@
+mutation {
+
+  user: createUser(data:{
+    email:"mag@gmail.com",
+    username:"marcaaron",
+    password:"$2a$10$fUjkhv7ypgCRKOxuVcr7Nu2X7bZfUBwpkbdH4VBFQb6C40gPF5JRe"
+  }){
+    id
+  }
+
+  log1: createLog(data:{
+    created_at:"2018-09-26T21:27:17.255Z",
+    user: {
+      connect:{
+        username:"marcaaron"
+      }
+    },
+    sets: {
+      create: [
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 6,
+          weight: 95,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Bench Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 95,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Bench Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 95,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Bench Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 5,
+          weight: 95,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Bench Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 9,
+          weight: 25,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Dubmbbell Shoulder Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Shoulder Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 9,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Shoulder Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 8,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Shoulder Press"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Dubmbbell Curl"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Curl"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Curl"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 5,
+          weight: 20,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Dubmbbell Curl"
+            }
+          }
+        }, 
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Pendlay Row"
+            }
+          }
+        }, 
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Pendlay Row"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 9,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Pendlay Row"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Pendlay Row"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 27,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Triceps Pushdown"
+            }
+          }
+        },  
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 27,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Triceps Pushdown"
+            }
+          }
+        },  
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 27,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Triceps Pushdown"
+            }
+          }
+        },     
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 7,
+          weight: 27,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Triceps Pushdown"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 45,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            create:{
+              name:"Barbell Squat"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Barbell Squat"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Barbell Squat"
+            }
+          }
+        },
+        {
+          created_at: "2018-09-26T21:27:17.255Z",
+          reps: 10,
+          weight: 65,
+          unit:"lbs",
+          user: {
+            connect:{
+              username:"marcaaron"
+            }
+          },
+          movement:{
+            connect:{
+              name:"Barbell Squat"
+            }
+          }
+        }
+      ]
+    }
+  }){
+    id
+  }
+}
