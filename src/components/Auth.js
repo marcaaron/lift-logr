@@ -124,6 +124,7 @@ class Auth extends Component {
             id="REGISTER"
             onClick={this.toggleAuthType}
             className={`auth-button`}
+            data-testid="register-button"
             >
             Register
           </button>
@@ -131,6 +132,7 @@ class Auth extends Component {
             id="LOGIN"
             onClick={this.toggleAuthType}
             className={`auth-button`}
+            data-testid="login-button"
             >Log In</button>
         </div>
         <form ref={this.form} onSubmit={this.handleSubmit}>

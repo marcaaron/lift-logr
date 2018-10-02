@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import Loading from './Loading';
 import PastLogButton from './PastLogButton';
 import { GET_USER_LOGS } from '../queries';
