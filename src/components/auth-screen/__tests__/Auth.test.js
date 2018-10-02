@@ -18,13 +18,13 @@ describe('Login / Register Screen', ()=>{
 
   test('it displays buttons to toggle between register and login', ()=>{
     const { getByTestId, debug } = wrapper;
-    expect(getByTestId('login-button')).toExist;
-    expect(getByTestId('register-button')).toExist;
+    expect(getByTestId('button-login')).toExist;
+    expect(getByTestId('button-register')).toExist;
   });
 
   test('clicking on register opens the registration form', ()=>{
     const { getByTestId, getByLabelText, debug } = wrapper;
-    const registerButton = getByTestId('register-button');
+    const registerButton = getByTestId('button-register');
     fireEvent.click(registerButton);
     const emailInput = getByLabelText('Email:');
     const passwordInput = getByLabelText('Password:');
@@ -35,12 +35,12 @@ describe('Login / Register Screen', ()=>{
   });
 
   test('clicking on login opens the login form', ()=>{
-    const { getByTestId, getByLabelText, debug } = wrapper;
-    const registerButton = getByTestId('register-button');
-    fireEvent.click(registerButton);
+    const { getByTestId, getByLabelText, queryByLabelText, debug } = wrapper;
+    const loginButton = getByTestId('button-login');
+    fireEvent.click(loginButton);
     const emailInput = getByLabelText('Email:');
     const passwordInput = getByLabelText('Password:');
-    const usernameInput = getByLabelText('Username:');
+    const usernameInput = queryByLabelText('Username:');
     expect(emailInput).toExist;
     expect(passwordInput).toExist;
     expect(usernameInput).toBeFalsy;
@@ -49,13 +49,6 @@ describe('Login / Register Screen', ()=>{
   test('it displays a submit button', () => {
     const { getByTestId } = wrapper;
     expect(getByTestId('submit-button')).toExist;
-  });
-
-  test('clicking on submit will call handleSubmit', ()=> {
-    const { getByTestId, debug } = wrapper;
-    const submitButton = getByTestId('submit-button');
-    fireEvent.click(submitButton);
-    // debug();
   });
 
 });

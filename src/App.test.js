@@ -18,10 +18,4 @@ describe('Home Route', ()=> {
     expect(getByTestId('App').toExist);
   });
   
-  test('renders register and login buttons', ()=> {
-    const { getByTestId } = wrapper;
-    expect(getByTestId('login-button').toBeTruthy);
-    expect(getByTestId('register-button').toBeTruthy);
-  });
-
 });

@@ -4,6 +4,7 @@ import './Auth.css';
 import { gql } from 'apollo-boost';
 import { graphql, compose } from 'react-apollo';
 import AuthForm from './AuthForm';
+import AuthButtons from './AuthButtons';
 
 const SIGNUP_USER = gql`
   mutation signup($email: String!, $password: String!, $username: String!){
@@ -103,41 +104,22 @@ class Auth extends Component {
         .catch(err=>console.log(err));
       break;
       default:
-      console.log('wtf');
+      return null;
     }
   }
 
   render(){
+    const { authType } = this.state;
+    const { toggleAuthType, renderForm, form, handleSubmit } = this;
     return(
       <div className="auth-main">
         <div className="logo">
           <h1>LOGR</h1>
           <p>lift <span>•</span> log <span>•</span> repeat</p>
         </div>
-        <div
-          className={`auth-buttons ${
-          this.state.authType === 'REGISTER' ? 'auth-buttons--left' : ''
-          } ${
-          this.state.authType === 'LOGIN' ? 'auth-buttons--right' : ''
-          }
-         `}>
-          <button
-            id="REGISTER"
-            onClick={this.toggleAuthType}
-            className={`auth-button`}
-            data-testid="register-button"
-            >
-            Register
-          </button>
-          <button
-            id="LOGIN"
-            onClick={this.toggleAuthType}
-            className={`auth-button`}
-            data-testid="login-button"
-            >Log In</button>
-        </div>
-        <AuthForm ref={this.form} handleSubmit={this.handleSubmit}>
-            {this.renderForm()}
+        <AuthButtons authType={authType} toggleAuthType={toggleAuthType} />
+        <AuthForm ref={form} handleSubmit={handleSubmit}>
+            {renderForm()}
         </AuthForm>
       </div>
     )
