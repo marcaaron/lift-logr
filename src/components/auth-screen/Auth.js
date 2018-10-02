@@ -136,7 +136,7 @@ class Auth extends Component {
             data-testid="login-button"
             >Log In</button>
         </div>
-        <AuthForm ref={this.form} onSubmit={this.handleSubmit}>
+        <AuthForm ref={this.form} handleSubmit={this.handleSubmit}>
             {this.renderForm()}
         </AuthForm>
       </div>

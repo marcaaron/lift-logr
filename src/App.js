@@ -8,7 +8,7 @@ import Charts from './components/Charts';
 import Help from './components/Help';
 import Movements from './components/Movements';
 import MovementCreate from './components/MovementCreate';
-import Auth from './components/Auth';
+import Auth from './components/auth-screen/Auth';
 import './App.css';
 import Layout from './components/Layout';
 import PastLog from './components/PastLog';
