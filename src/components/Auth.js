@@ -3,6 +3,7 @@ import renderForm from './renderForm';
 import './Auth.css';
 import { gql } from 'apollo-boost';
 import { graphql, compose } from 'react-apollo';
+import AuthForm from './AuthForm';
 
 const SIGNUP_USER = gql`
   mutation signup($email: String!, $password: String!, $username: String!){
@@ -135,12 +136,9 @@ class Auth extends Component {
             data-testid="login-button"
             >Log In</button>
         </div>
-        <form ref={this.form} onSubmit={this.handleSubmit}>
-          <div>
+        <AuthForm ref={this.form} onSubmit={this.handleSubmit}>
             {this.renderForm()}
-          </div>
-          <button className="auth-submit" type="submit">Submit</button>
-        </form>
+        </AuthForm>
       </div>
     )
   }

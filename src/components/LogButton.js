@@ -30,7 +30,7 @@ const LogButton = (props) => (
       if(loading) return <Loading/>;
       if(error) return 'error';
       const logItems = data.currentLog.items.map(({reps, weight, unit, movement_id})=>{
-        return { reps, weight, unit, movement_id }
+        return { reps, weight, unit, movement_id };
       });
       return(
         <Mutation
@@ -40,45 +40,45 @@ const LogButton = (props) => (
               <Mutation
                 mutation={CLEAR_LOG_STATE}>
                 {(clearLogState)=>(
-                    <div>
-                      <button
-                        onClick={()=>{
-                          const created_at = new Date().toISOString();
-                          createLog({
-                            variables: {
-                              created_at,
-                              sets: logItems
-                            },
-                            refetchQueries: [{
-                              query: GET_USER_LOGS,
-                              variables: {first:10, skip:0}}
-                            ]
-                          })
+                  <div>
+                    <button
+                      onClick={()=>{
+                        const created_at = new Date().toISOString();
+                        createLog({
+                          variables: {
+                            created_at,
+                            sets: logItems
+                          },
+                          refetchQueries: [{
+                            query: GET_USER_LOGS,
+                            variables: {first:10, skip:0}}
+                          ]
+                        })
                           .then( data => {
                             console.log(data);
                             // dump client state
                             clearLogState()
                             // push user to logs page
-                            .then(()=>{
+                              .then(()=>{
                               // client.resetStore();
-                              props.history.push('/logs')
-                            })
-                            .catch(err=>console.log(err))
+                                props.history.push('/logs');
+                              })
+                              .catch(err=>console.log(err));
                           })
                           .catch(err=>console.log(err));
-                        }}
-                        className="btn--large"
-                      >
+                      }}
+                      className="btn--large"
+                    >
                         SAVE LOG
-                      </button>
-                    </div>
-                  )
+                    </button>
+                  </div>
+                )
                 }
               </Mutation>
-            )
+            );
           }}
         </Mutation>
-      )
+      );
     }}
   </Query>
 );

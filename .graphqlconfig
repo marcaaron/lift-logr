@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "Logr": {
+      "schemaPath": "schema.graphql"
+    }
+  }
+}
