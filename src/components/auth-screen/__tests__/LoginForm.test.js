@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from 'react-testing-library';
-import RegisterForm from './RegisterForm';
+import LoginForm from '../LoginForm';
 
 // This only tests the form inputs themselves and not 
 // whether they are submitted or validated in anyway.
 
-describe('Register Form Fields', () => {
+describe('Login Form Fields', () => {
   let wrapper,
   props,
   handleChange;
@@ -19,21 +19,20 @@ describe('Register Form Fields', () => {
       handleChange,
       values: {
         email: '',
-        username: '',
         password: ''
       }
     };
 
     wrapper = render(
-      <RegisterForm {...props} />
+      <LoginForm {...props} />
     );
   });
 
-  test('Register Form Fields Render', () => {
-    const { getByLabelText } = wrapper;
+  test('Login Form Fields Render', () => {
+    const { getByLabelText, queryByLabelText } = wrapper;
     expect(getByLabelText('Email:')).toExist;
     expect(getByLabelText('Password:')).toExist;
-    expect(getByLabelText('Username:')).toExist;
+    expect(queryByLabelText('Username:')).not.toExist;
   });
 
   test('Email input changes on change', () => {
@@ -50,15 +49,6 @@ describe('Register Form Fields', () => {
     const passwordInput = getByTestId('input-password');
     fireEvent.change(passwordInput, {target: {
       value: 'password'
-    }});
-    expect(handleChange).toHaveBeenCalledTimes(1);
-  });
-
-  test('Username input changes on change', () => {
-    const { getByTestId, debug } = wrapper;
-    const usernameInput = getByTestId('input-username');
-    fireEvent.change(usernameInput, {target: {
-      value: 'bobbyrossy'
     }});
     expect(handleChange).toHaveBeenCalledTimes(1);
   });

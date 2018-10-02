@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from 'react-testing-library';
 import { MockedProvider } from 'react-apollo/test-utils';
-import Auth from './Auth';
+import Auth from '../Auth';
 
 describe('Login / Register Screen', ()=>{
   let wrapper;

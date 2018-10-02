@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, queryAllByTestId } from 'react-testing-library';
-import renderForm from './renderForm';
+import renderForm from '../renderForm';
 
 describe('renderForm function', () => {
   const formData = {

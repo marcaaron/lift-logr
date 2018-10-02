@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthForm from './AuthForm';
+import AuthForm from '../AuthForm';
 import { render, cleanup, fireEvent } from 'react-testing-library';
-import renderForm from './renderForm';
+import renderForm from '../renderForm';
 
 describe('Login / Register Form', () => {
   let wrapper,
